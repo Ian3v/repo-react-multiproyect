@@ -29,7 +29,7 @@ function App() {
             return Array(9).fill(null)
         }
         
-    }
+    }   
 )
 
 const [turn, setTurn] = useState( ()=>{
