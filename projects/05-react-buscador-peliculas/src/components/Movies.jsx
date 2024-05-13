@@ -5,14 +5,14 @@ function ListOfMovies ({pelis}){
     // console.log('5>', pelis);
     // console.log('6>', pelis[0].imdbID);
     return (
-      <ul>
+      <ul className="ul-listaDePeliculas">
         {
           pelis.map((elemento,index,allArray)=>{
             return (
-              <li key={elemento.id}>
-                <h3>{elemento.Title}</h3>
-                <p>{elemento.year}</p>
-                {/* <img src={elemento.poster} alt={elemento.Title}/> */}
+              <li className="li-movie" key={elemento.id}>
+                <h3 className="h3-title-movie" >{elemento.title}</h3>
+                <p className="p-year-movie">{elemento.year}</p>
+                <img   src={elemento.poster} alt={elemento.Title}/>
               </li>
             ) 
           })

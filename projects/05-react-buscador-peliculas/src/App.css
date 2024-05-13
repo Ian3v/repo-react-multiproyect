@@ -4,6 +4,12 @@ body{
     
 }
 
+.h3-title-movie{
+    margin: 0px;
+}
+.p-year-movie{
+    margin: 5px;
+}
 
 .page{
     display: flex;
@@ -17,4 +23,18 @@ body{
 }
 
 
+main{
+    width: 100%;
+}
 
+.ul-listaDePeliculas{
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+    gap: 20px;
+}
+
+.li-movie{
+    border: 3px solid transparent;
+    border-radius: 20px;
+    padding: 10px;
+}
