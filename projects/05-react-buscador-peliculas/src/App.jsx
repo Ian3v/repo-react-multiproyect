@@ -1,7 +1,7 @@
 import './App.css'
 // import responseMovies from './Mocks/with-result' // responseMovies es una platilla para los resultados sin conexion
 // import { renderMovies, renderNotResult }  from './components/Movies'
-import {Movies } from './components/Movies'
+import { Movies } from './components/Movies'
 import { useMovies } from './Hooks/useMOvies'
 import { useEffect, useState, useRef } from 'react'
 
