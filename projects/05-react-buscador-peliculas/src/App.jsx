@@ -912,3 +912,322 @@ export default App
 
 
 /* -------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------- */
+
+// #region 7.1 searchMovies
+// con la funcionalidad de searchMovues sin eliminar la funcionalidad de useMovies
+// import './App.css'
+// // import responseMovies from './Mocks/with-result' // responseMovies es una platilla para los resultados sin conexion
+// // import { renderMovies, renderNotResult }  from './components/Movies'
+// import { Movies } from './components/Movies'
+// import { useMovies } from './Hooks/useMOvies'
+// import { useEffect, useState, useRef } from 'react'
+
+// // !todo 107 con grid <----
+// // !1:10  lo siguiente-->
+
+
+// //Custom Hooks
+// function useSearch(){
+//   const [search, updateSearch] = useState('')
+//   const [error, setError] = useState(null)
+//   const isFirstInput = useRef(true)
+
+
+//   useEffect( ()=>{
+//     if(isFirstInput.current){
+//       /* -------------------------------------------------------------------------- */
+//       isFirstInput.current = search === ''
+
+//       if(search === ''){
+//         isFirstInput.current = true
+//       }else{
+//         isFirstInput.current = false
+//       }
+//       /* -------------------------------------------------------------------------- */
+//       return
+//     }
+
+//     if(search === ''){
+//       setError('1-Vacio, no se peude buscar vacio')
+//       return
+//     }
+//     if(search.match(/^\d+$/)){
+//       setError('2-Numeros, no se peude buscar numero')
+//       return
+//     }
+//     if(search.length < 3){
+//       setError('3-Menor a 3, no se peude buscar solo 3 caracteres')
+//       return
+//     }
+//     if(search.match(/walle/i)){
+//       setError('4-no walle, no se peude buscar walle')
+//       return
+//     }
+//     setError(null)
+//   }, [search])
+
+//   return { search, updateSearch, error}
+// }
+
+
+
+// function App() {
+
+//   const {search, updateSearch, error} = useSearch()
+//   const { mappedMovies, getMovie, getingMovies, movv} = useMovies() //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
+//   // const {mappedMovies} = useMovies() //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
+//   // const [query, setQuery] = useState('')
+  
+//   console.log('%c64 App movv >','color:yellow;font-size:15px;',movv);
+//   /* ------------------------------ habldeSubmit ------------------------------ */
+//   const handleSubmit = (e)=>{
+//     e.preventDefault();
+//     const fields = Object.fromEntries(new window.FormData( e.target))
+
+//     // setGoSearch(fields.query1) //! obteniedo el ultimo search ya sumitearlo
+//     console.log('%c72 >','color:blue;font-size:15px;',search);
+//     getMovie(search)
+//     getingMovies(search)
+//   }
+
+//   /* ------------------------------ handleChange ------------------------------ */
+//   const handleChange = (e) =>{
+//     console.log(e.target.value);
+
+//     const newQuery = e.target.value
+
+//     if(newQuery.startsWith('e')) return
+
+//     updateSearch(e.target.value);
+    
+//   }
+
+
+
+//   return ( 
+//     <div className='page'>
+     
+//       <header>
+
+//         <h1>Search oM</h1>
+
+//         <form className='form' onSubmit={handleSubmit} >  
+//           <input 
+//             style={{ border: '2px solid transparent', borderColor: error ? 'red' : 'transparent'}}
+//             // ref={inputRef}
+//             value={search}
+//             onChange={handleChange}
+//             name='query1'
+//             placeholder='Interestellar, Start Wars, The Matrix, Avatar'
+//           />
+//           <input 
+//             // onChange={handleChange}  
+//             // value={query} 
+//             // ref={inputRef}
+//             // name='PrimerInput' 
+//             name='query2'
+//             placeholder='Interestellar, Start Wars, The Matrix, Avatar'
+//           />
+//           <button type='submit'>Buscar</button>
+//           {/* {error && <p style={{color:'red'}}>{error}</p> } */}
+//           {error && <div style={{color:'red'}}>{error}</div>}
+//         </form>
+
+//       </header>
+
+//       <main>
+//         {
+//           //<Movies Movies={mappedMovies} /> //! ? creo q mandamos todo el js ya obtenido 
+         
+//           <Movies Movies={movv} /> //! ? creo q mandamos todo el js ya obtenido
+//         }
+//       </main>
+            
+//     </div>
+//   )
+// }
+
+// export default App
+
+
+/* -------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------- */
+
+// #region 7.1 searchMovies 
+// con la fucnionalidad de searchMovies isn elinar la funcionalidad de useMovies - fetch y mapeo
+
+// import './App.css'
+// // import responseMovies from './Mocks/with-result' // responseMovies es una platilla para los resultados sin conexion
+// // import { renderMovies, renderNotResult }  from './components/Movies'
+// import { Movies } from './components/Movies'
+// import { useMovies } from './Hooks/useMOvies'
+// import { useEffect, useState, useRef } from 'react'
+
+// // !todo 107 con grid <----
+// // !1:10  lo siguiente-->
+
+
+// //Custom Hooks
+// function useSearch(){
+//   const [search, updateSearch] = useState('')
+//   const [error, setError] = useState(null)
+//   const isFirstInput = useRef(true)
+
+
+//   useEffect( ()=>{
+//     if(isFirstInput.current){
+//       /* -------------------------------------------------------------------------- */
+//       isFirstInput.current = search === ''
+
+//       if(search === ''){
+//         isFirstInput.current = true
+//       }else{
+//         isFirstInput.current = false
+//       }
+//       /* -------------------------------------------------------------------------- */
+//       return
+//     }
+
+//     if(search === ''){
+//       setError('1-Vacio, no se peude buscar vacio')
+//       return
+//     }
+//     if(search.match(/^\d+$/)){
+//       setError('2-Numeros, no se peude buscar numero')
+//       return
+//     }
+//     if(search.length < 3){
+//       setError('3-Menor a 3, no se peude buscar solo 3 caracteres')
+//       return
+//     }
+//     if(search.match(/walle/i)){
+//       setError('4-no walle, no se peude buscar walle')
+//       return
+//     }
+//     setError(null)
+//   }, [search])
+
+//   return { search, updateSearch, error}
+// }
+
+
+
+// function App() {
+
+//   const {search, updateSearch, error} = useSearch()
+//   const { mappedMovies, getMovie, getingMovies, movv} = useMovies() //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
+//   // const {mappedMovies} = useMovies() //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
+//   // const [query, setQuery] = useState('')
+  
+//   console.log('%c64 App movv >','color:yellow;font-size:15px;',movv);
+//   /* ------------------------------ habldeSubmit ------------------------------ */
+//   const handleSubmit = (e)=>{
+//     e.preventDefault();
+//     const fields = Object.fromEntries(new window.FormData( e.target))
+
+//     // setGoSearch(fields.query1) //! obteniedo el ultimo search ya sumitearlo
+//     console.log('%c72 >','color:blue;font-size:15px;',search);
+//     getMovie(search)
+//     getingMovies(search)
+//   }
+
+//   /* ------------------------------ handleChange ------------------------------ */
+//   const handleChange = (e) =>{
+//     console.log(e.target.value);
+
+//     const newQuery = e.target.value
+
+//     if(newQuery.startsWith('e')) return
+
+//     updateSearch(e.target.value);
+    
+//   }
+
+
+
+//   return ( 
+//     <div className='page'>
+     
+//       <header>
+
+//         <h1>Search oM</h1>
+
+//         <form className='form' onSubmit={handleSubmit} >  
+//           <input 
+//             style={{ border: '2px solid transparent', borderColor: error ? 'red' : 'transparent'}}
+//             // ref={inputRef}
+//             value={search}
+//             onChange={handleChange}
+//             name='query1'
+//             placeholder='Interestellar, Start Wars, The Matrix, Avatar'
+//           />
+//           <input 
+//             // onChange={handleChange}  
+//             // value={query} 
+//             // ref={inputRef}
+//             // name='PrimerInput' 
+//             name='query2'
+//             placeholder='Interestellar, Start Wars, The Matrix, Avatar'
+//           />
+//           <button type='submit'>Buscar</button>
+//           {/* {error && <p style={{color:'red'}}>{error}</p> } */}
+//           {error && <div style={{color:'red'}}>{error}</div>}
+//         </form>
+
+//       </header>
+
+//       <main>
+//         {
+//           //<Movies Movies={mappedMovies} /> //! ? creo q mandamos todo el js ya obtenido 
+         
+//           <Movies Movies={movv} /> //! ? creo q mandamos todo el js ya obtenido
+//         }
+//       </main>
+            
+//     </div>
+//   )
+// }
+
+// export default App
+
+
+/* -------------------------------------------------------------------------- */
