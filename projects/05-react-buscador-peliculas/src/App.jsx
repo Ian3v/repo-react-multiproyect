@@ -57,11 +57,11 @@ function useSearch(){
 function App() {
 
   const {search, updateSearch, error} = useSearch()
-  const { mappedMovies, getMovie, getingMovies, movv} = useMovies() //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
+  const { movies, getMovies} = useMovies() //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
   // const {mappedMovies} = useMovies() //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
   // const [query, setQuery] = useState('')
   
-  console.log('%c64 App movv >','color:yellow;font-size:15px;',movv);
+  // console.log('%c64 App movv >','color:yellow;font-size:15px;',movv);
   /* ------------------------------ habldeSubmit ------------------------------ */
   const handleSubmit = (e)=>{
     e.preventDefault();
@@ -69,8 +69,8 @@ function App() {
 
     // setGoSearch(fields.query1) //! obteniedo el ultimo search ya sumitearlo
     console.log('%c72 >','color:blue;font-size:15px;',search);
-    getMovie(search)
-    getingMovies(search)
+    getMovies(search)
+    // getingMovies(search)
   }
 
   /* ------------------------------ handleChange ------------------------------ */
@@ -122,7 +122,7 @@ function App() {
         {
           //<Movies Movies={mappedMovies} /> //! ? creo q mandamos todo el js ya obtenido 
          
-          <Movies Movies={movv} /> //! ? creo q mandamos todo el js ya obtenido
+          <Movies Movies={movies} /> //! ? creo q mandamos todo el js ya obtenido
         }
       </main>
             
