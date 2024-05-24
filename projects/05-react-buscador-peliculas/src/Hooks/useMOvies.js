@@ -6,21 +6,23 @@ import { useRef } from "react"
 
 import { searchMovies } from "../Services/SearchMovies"
 
+
+let previousSearch = ''
 export function useMovies ({search}) {
   
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(false)
   const [errorh, setError] = useState(null)
-  const previusSearch = useRef(search) // un Hook para permutar el valor y comprarlo cuando se hace la misma busqueda
+  // const previusSearch = useRef(search) // un Hook para permutar el valor y comprarlo cuando se hace la misma busqueda
 
     const getMovies = async (search)=>{
 
-      if(search === previusSearch.current) return  
+      if(search === previousSearch) return  
 
       try{
         setLoading(true)
         setError(null)
-        previusSearch.current = search
+        previousSearch = search
         const newMovies = await searchMovies({search})
         setMovies(newMovies)
       }catch(e){
