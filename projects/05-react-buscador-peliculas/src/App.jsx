@@ -57,7 +57,7 @@ function useSearch(){
 function App() {
 
   const {search, updateSearch, error} = useSearch()
-  const { movies, getMovies} = useMovies() //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
+  const { movies, getMovies, errorh, loading} = useMovies({search}) //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
   // const {mappedMovies} = useMovies() //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
   // const [query, setQuery] = useState('')
   
@@ -121,8 +121,8 @@ function App() {
       <main>
         {
           //<Movies Movies={mappedMovies} /> //! ? creo q mandamos todo el js ya obtenido 
-         
-          <Movies Movies={movies} /> //! ? creo q mandamos todo el js ya obtenido
+          loading ? <h1>loading</h1> : <Movies Movies={movies} />
+          //<Movies Movies={movies} /> //! ? creo q mandamos todo el js ya obtenido
         }
       </main>
             

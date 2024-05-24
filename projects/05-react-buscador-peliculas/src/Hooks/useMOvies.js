@@ -1,27 +1,50 @@
-import React, { useState } from "react"
+import { useState } from "react"
+import { useRef } from "react"
 
-import withResults from '../Mocks/with-result.json' // responseMovies es una platilla para los resultados sin conexion
-import NotResult from '../Mocks/not-result.json'
+// import withResults from '../Mocks/with-result.json' // responseMovies es una platilla para los resultados sin conexion
+// import NotResult from '../Mocks/not-result.json'
 
 import { searchMovies } from "../Services/SearchMovies"
 
-export function useMovies () {
+export function useMovies ({search}) {
   
   const [movies, setMovies] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [errorh, setError] = useState(null)
+  const previusSearch = useRef(search) // un Hook para permutar el valor y comprarlo cuando se hace la misma busqueda
 
+    const getMovies = async (search)=>{
+
+      if(search === previusSearch.current) return  
+
+      try{
+        setLoading(true)
+        setError(null)
+        previusSearch.current = search
+        const newMovies = await searchMovies({search})
+        setMovies(newMovies)
+      }catch(e){
+        setError(e.message)
+      }finally{
+        setLoading(false)
+      }
+
+    }
+ 
   /* ------------------- Funcionalidad separada SearchMovies ------------------ */
   // getingMOvies -> es pasado a App.js - este mismo lo extraemos y le pasamos search del INPUT
   // egetingMOvie aki agarra a Search y lo pone en el estado movv
   // movv tambien es exportado en App, - movv optiene El Array de la busque de SearchMovies- quien mapea y hace el fetch
   // movv en App le m=pasamo a MOVIES quein renderizara con el array
-  const getMovies = async (search)=>{
-    const newMovies = await searchMovies({search})
-    setMovies(newMovies)
-  }
+  // const getMovies = async (search)=>{
+  //   const newMovies = await searchMovies({search})
+  //   setMovies(newMovies)
+  // }
 /* -------------------------------------------------------------------------- */
 
     // return { mappedMovies, getMovie, getingMovies, movv}
-    return { movies, getMovies}
+    
+    return { movies, getMovies,errorh,loading}
   }
   
 
@@ -177,6 +200,48 @@ export function useMovies () {
   
 
 
+
+
+  /* -------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+  /* -------------------------------------------------------------------------- */
+  // #region 7.2  con searchMOvies en funcion
+
+//   import React, { useState } from "react"
+
+// // import withResults from '../Mocks/with-result.json' // responseMovies es una platilla para los resultados sin conexion
+// // import NotResult from '../Mocks/not-result.json'
+
+// import { searchMovies } from "../Services/SearchMovies"
+
+// export function useMovies () {
+  
+//   const [movies, setMovies] = useState([])
+
+//   /* ------------------- Funcionalidad separada SearchMovies ------------------ */
+//   // getingMOvies -> es pasado a App.js - este mismo lo extraemos y le pasamos search del INPUT
+//   // egetingMOvie aki agarra a Search y lo pone en el estado movv
+//   // movv tambien es exportado en App, - movv optiene El Array de la busque de SearchMovies- quien mapea y hace el fetch
+//   // movv en App le m=pasamo a MOVIES quein renderizara con el array
+//   const getMovies = async (search)=>{
+//     const newMovies = await searchMovies({search})
+//     setMovies(newMovies)
+//   }
+// /* -------------------------------------------------------------------------- */
+
+//     // return { mappedMovies, getMovie, getingMovies, movv}
+//     return { movies, getMovies}
+//   }
+  
 
 
   /* -------------------------------------------------------------------------- */
