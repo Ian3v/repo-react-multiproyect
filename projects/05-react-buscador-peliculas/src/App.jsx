@@ -8,7 +8,6 @@ import { useEffect, useState, useRef } from 'react'
 // !todo 107 con grid <----
 // !1:10  lo siguiente-->
 
-
 //Custom Hooks
 function useSearch(){
   const [search, updateSearch] = useState('')

@@ -1,10 +1,11 @@
 import { useState } from "react"
-import { useRef } from "react"
 
 // import withResults from '../Mocks/with-result.json' // responseMovies es una platilla para los resultados sin conexion
 // import NotResult from '../Mocks/not-result.json'
 
 import { searchMovies } from "../Services/SearchMovies"
+
+import { useRef } from "react"
 
 export function useMovies ({search}) {
   
