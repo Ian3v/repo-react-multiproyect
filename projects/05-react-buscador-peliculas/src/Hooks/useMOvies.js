@@ -35,20 +35,21 @@ export function useMovies ({search, sort}) {  //sort => trrue or false
     /* --------------------------- ordenar por titulo --------------------------- */
     const sortedMovies = (sort)=>{
       
-        // Declaramos una variable para almacenar las películas ordenadas.
-        let ordenMovies;
-        // Verificamos si sort es verdadero.
-        if (sort) {
-          // Si sort es verdadero, hacemos una copia del array movies y lo ordenamos.
-          ordenMovies = movies.slice().sort(function(a, b) {
-            return a.title.localeCompare(b.title);
-          });
-        } else {
-          // Si sort es falso, simplemente asignamos el array movies sin modificarlo.
-          ordenMovies = movies;
-        }
-        // Retornamos el resultado. pero Normal sin ordenar ya q no entro al if y no lo ordeno
-        return ordenMovies;
+      console.log('%c38 sortedMovies >','color:pink;font-size:15px;');
+      // Declaramos una variable para almacenar las películas ordenadas.
+      let ordenMovies;
+      // Verificamos si sort es verdadero.
+      if (sort) {
+        // Si sort es verdadero, hacemos una copia del array movies y lo ordenamos.
+        ordenMovies = movies.slice().sort(function(a, b) {
+          return a.title.localeCompare(b.title);
+        });
+      } else {
+        // Si sort es falso, simplemente asignamos el array movies sin modificarlo.
+        ordenMovies = movies;
+      }
+      // Retornamos el resultado. pero Normal sin ordenar ya q no entro al if y no lo ordeno
+      return ordenMovies;
       
     }
 

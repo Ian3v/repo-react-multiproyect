@@ -55,7 +55,7 @@ function useSearch(){
 
 function App() {
 
-  const [sort, setSort] = useState(false)
+  const [sort, setSort] = useState(false) // Para ordenar por tiutlo las peliculas
 
   const {search, updateSearch, error} = useSearch()
   const { movies, getMovies, errorh, loading, sortedMovies} = useMovies({search,sort}) //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
@@ -135,10 +135,7 @@ function App() {
             <h1>loading</h1> 
           : 
             sort 
-              ? 
-                <Movies Movies={sortedMovies(sort)} /> 
-              : 
-                <Movies Movies={movies} />
+              ? <Movies Movies={sortedMovies(sort)} /> : <Movies Movies={movies} />
           //<Movies Movies={movies} /> //! ? creo q mandamos todo el js ya obtenido
         }
       </main>
