@@ -55,10 +55,17 @@ function useSearch(){
 
 function App() {
 
+  const [sort, setSort] = useState(false)
+
   const {search, updateSearch, error} = useSearch()
-  const { movies, getMovies, errorh, loading} = useMovies({search}) //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
+  const { movies, getMovies, errorh, loading, sortedMovies} = useMovies({search,sort}) //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
   // const {mappedMovies} = useMovies() //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
   // const [query, setQuery] = useState('')
+  const handleSort = ()=>{
+    console.log('%c65 >','color:red;font-size:15px;',sort);
+    setSort(!sort)
+    sortedMovies(search) // mandamos al la funcion de useMovies - sortedMovies el search par q lo ordene
+  }
   
   // console.log('%c64 App movv >','color:yellow;font-size:15px;',movv);
   /* ------------------------------ habldeSubmit ------------------------------ */
@@ -110,6 +117,9 @@ function App() {
             name='query2'
             placeholder='Interestellar, Start Wars, The Matrix, Avatar'
           />
+          <input 
+            type='checkbox' onChange={handleSort} checked={sort}
+          />
           <button type='submit'>Buscar</button>
           {/* {error && <p style={{color:'red'}}>{error}</p> } */}
           {error && <div style={{color:'red'}}>{error}</div>}
@@ -120,7 +130,15 @@ function App() {
       <main>
         {
           //<Movies Movies={mappedMovies} /> //! ? creo q mandamos todo el js ya obtenido 
-          loading ? <h1>loading</h1> : <Movies Movies={movies} />
+          loading 
+          ? 
+            <h1>loading</h1> 
+          : 
+            sort 
+              ? 
+                <Movies Movies={sortedMovies(sort)} /> 
+              : 
+                <Movies Movies={movies} />
           //<Movies Movies={movies} /> //! ? creo q mandamos todo el js ya obtenido
         }
       </main>

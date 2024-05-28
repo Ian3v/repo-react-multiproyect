@@ -1,19 +1,18 @@
 import { useState } from "react"
-
 // import withResults from '../Mocks/with-result.json' // responseMovies es una platilla para los resultados sin conexion
 // import NotResult from '../Mocks/not-result.json'
-
 import { searchMovies } from "../Services/SearchMovies"
-
 import { useRef } from "react"
 
-export function useMovies ({search}) {
+
+export function useMovies ({search, sort}) {  //sort => trrue or false
+  
   
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(false)
   const [errorh, setError] = useState(null)
   const previusSearch = useRef(search) // un Hook para permutar el valor y comprarlo cuando se hace la misma busqueda
-
+  const [sortData, setSortData] = useState([])
     const getMovies = async (search)=>{
 
       if(search === previusSearch.current) return  
@@ -31,7 +30,38 @@ export function useMovies ({search}) {
       }
 
     }
- 
+
+    /* -------------------------------------------------------------------------- */
+    /* --------------------------- ordenar por titulo --------------------------- */
+    const sortedMovies = (sort)=>{
+      
+        // Declaramos una variable para almacenar las películas ordenadas.
+        let ordenMovies;
+        // Verificamos si sort es verdadero.
+        if (sort) {
+          // Si sort es verdadero, hacemos una copia del array movies y lo ordenamos.
+          ordenMovies = movies.slice().sort(function(a, b) {
+            return a.title.localeCompare(b.title);
+          });
+        } else {
+          // Si sort es falso, simplemente asignamos el array movies sin modificarlo.
+          ordenMovies = movies;
+        }
+        // Retornamos el resultado. pero Normal sin ordenar ya q no entro al if y no lo ordeno
+        return ordenMovies;
+      
+    }
+
+    // console.log('%c47 >','color:violet;font-size:15px;',sortedMovies(sort));
+    // ? 
+    //   [...movies].sort( (a,b)=>{ a.title.localCompare(b.title)} )
+    // :
+    //   movies
+    
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+
+
   /* ------------------- Funcionalidad separada SearchMovies ------------------ */
   // getingMOvies -> es pasado a App.js - este mismo lo extraemos y le pasamos search del INPUT
   // egetingMOvie aki agarra a Search y lo pone en el estado movv
@@ -45,8 +75,8 @@ export function useMovies ({search}) {
 
     // return { mappedMovies, getMovie, getingMovies, movv}
     
-    return { movies, getMovies,errorh,loading}
-  }
+    return { movies, getMovies,errorh,loading, sortedMovies }
+}
   
 
 
