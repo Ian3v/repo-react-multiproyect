@@ -133,9 +133,9 @@ function App() {
           loading 
           ? 
             <h1>loading</h1> 
-          : 
-            sort 
-              ? <Movies Movies={sortedMovies(sort)} /> : <Movies Movies={movies} />
+          :  <Movies Movies={sortedMovies(sort)} /> 
+         //   sort 
+         //     ? <Movies Movies={sortedMovies(sort)} /> : <Movies Movies={movies} />
           //<Movies Movies={movies} /> //! ? creo q mandamos todo el js ya obtenido
         }
       </main>

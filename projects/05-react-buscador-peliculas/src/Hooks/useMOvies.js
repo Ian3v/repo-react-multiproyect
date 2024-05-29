@@ -3,56 +3,81 @@ import { useState } from "react"
 // import NotResult from '../Mocks/not-result.json'
 import { searchMovies } from "../Services/SearchMovies"
 import { useRef } from "react"
-
+import { useMemo } from "react"
 
 export function useMovies ({search, sort}) {  //sort => trrue or false
-  
   
   const [movies, setMovies] = useState([])
   const [loading, setLoading] = useState(false)
   const [errorh, setError] = useState(null)
   const previusSearch = useRef(search) // un Hook para permutar el valor y comprarlo cuando se hace la misma busqueda
   const [sortData, setSortData] = useState([])
-    const getMovies = async (search)=>{
+   
+  const getMovies = async (search)=>{
 
-      if(search === previusSearch.current) return  
+    if(search === previusSearch.current) return  
 
-      try{
-        setLoading(true)
-        setError(null)
-        previusSearch.current = search
-        const newMovies = await searchMovies({search})
-        setMovies(newMovies)
-      }catch(e){
-        setError(e.message)
-      }finally{
-        setLoading(false)
-      }
-
+    try{
+      setLoading(true)
+      setError(null)
+      previusSearch.current = search
+      const newMovies = await searchMovies({search})
+      setMovies(newMovies)
+    }catch(e){
+      setError(e.message)
+    }finally{
+      setLoading(false)
     }
 
-    /* -------------------------------------------------------------------------- */
-    /* --------------------------- ordenar por titulo --------------------------- */
-    const sortedMovies = (sort)=>{
-      
-      console.log('%c38 sortedMovies >','color:pink;font-size:15px;');
-      // Declaramos una variable para almacenar las películas ordenadas.
-      let ordenMovies;
-      // Verificamos si sort es verdadero.
-      if (sort) {
-        // Si sort es verdadero, hacemos una copia del array movies y lo ordenamos.
-        ordenMovies = movies.slice().sort(function(a, b) {
-          return a.title.localeCompare(b.title);
-        });
-      } else {
-        // Si sort es falso, simplemente asignamos el array movies sin modificarlo.
-        ordenMovies = movies;
-      }
-      // Retornamos el resultado. pero Normal sin ordenar ya q no entro al if y no lo ordeno
+  }
+  console.log('%c33 >','color:gray;font-size:15px;',movies);
+
+/* -------------------------------------------------------------------------- */
+/* --------------------------- ordenar por titulo --------------------------- */
+// usando useMemo para evitar el calculo computacional de ordenar
+    
+  const sortedMovies = (sort)=>{
+    
+    // Declaramos una variable para almacenar las películas ordenadas.
+    let ordenMovies;
+    // Verificamos si sort es verdadero.
+    if (sort) {
+      // Si sort es verdadero, hacemos una copia del array movies y lo ordenamos.
+      ordenMovies = movies.slice().sort(function(a, b) {
+        console.log('%c45 >','color:blue;font-size:15px;',a.title.localeCompare(b.title));
+        return a.title.localeCompare(b.title);
+      });
+      return ordenMovies; //Devlvemos lo q movies tiene pero ordenado
+
+    } else {
+      // Si sort es falso, simplemente asignamos el array movies sin modificarlo.
+      ordenMovies = movies;
       return ordenMovies;
-      
-    }
+    }    
+  }
 
+/* -------------------------------------------------------------------------- */
+    // const sortedMovies = (sort)=>{
+      
+    //   console.log('%c38 sortedMovies >','color:pink;font-size:15px;');
+    //   // Declaramos una variable para almacenar las películas ordenadas.
+    //   let ordenMovies;
+    //   // Verificamos si sort es verdadero.
+    //   if (sort) {
+    //     // Si sort es verdadero, hacemos una copia del array movies y lo ordenamos.
+    //     ordenMovies = movies.slice().sort(function(a, b) {
+    //       return a.title.localeCompare(b.title);
+    //     });
+    //   } else {
+    //     // Si sort es falso, simplemente asignamos el array movies sin modificarlo.
+    //     ordenMovies = movies;
+    //   }
+    //   // Retornamos el resultado. pero Normal sin ordenar ya q no entro al if y no lo ordeno
+    //   return ordenMovies;
+      
+    // }
+
+/* -------------------------------------------------------------------------- */
     // console.log('%c47 >','color:violet;font-size:15px;',sortedMovies(sort));
     // ? 
     //   [...movies].sort( (a,b)=>{ a.title.localCompare(b.title)} )
@@ -76,7 +101,7 @@ export function useMovies ({search, sort}) {  //sort => trrue or false
 
     // return { mappedMovies, getMovie, getingMovies, movv}
     
-    return { movies, getMovies,errorh,loading, sortedMovies }
+    return { movies, sortedMovies, getMovies,errorh,loading }
 }
   
 
