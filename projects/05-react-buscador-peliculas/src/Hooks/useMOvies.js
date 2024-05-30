@@ -30,7 +30,6 @@ export function useMovies ({search, sort}) {  //sort => trrue or false
     }
 
   }
-  console.log('%c33 >','color:gray;font-size:15px;',movies);
 
 /* -------------------------------------------------------------------------- */
 /* --------------------------- ordenar por titulo --------------------------- */
@@ -38,13 +37,14 @@ export function useMovies ({search, sort}) {  //sort => trrue or false
     
   const sortedMovies = (sort)=>{
     
+    console.log('%c40 sortedMovies >','color:red;font-size:15px;',sortedMovies);
     // Declaramos una variable para almacenar las películas ordenadas.
     let ordenMovies;
     // Verificamos si sort es verdadero.
     if (sort) {
       // Si sort es verdadero, hacemos una copia del array movies y lo ordenamos.
       ordenMovies = movies.slice().sort(function(a, b) {
-        console.log('%c45 >','color:blue;font-size:15px;',a.title.localeCompare(b.title));
+        // console.log('%c45 >','color:blue;font-size:15px;',a.title.localeCompare(b.title));
         return a.title.localeCompare(b.title);
       });
       return ordenMovies; //Devlvemos lo q movies tiene pero ordenado

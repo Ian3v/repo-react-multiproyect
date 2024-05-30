@@ -7,7 +7,7 @@ import { useEffect, useState, useRef } from 'react'
 
 // !todo 107 con grid <----
 // !1:10  lo siguiente-->
-
+// 1:38--
 //Custom Hooks
 function useSearch(){
   const [search, updateSearch] = useState('')
@@ -50,9 +50,6 @@ function useSearch(){
 
   return { search, updateSearch, error}
 }
-
-
-
 function App() {
 
   const [sort, setSort] = useState(false) // Para ordenar por tiutlo las peliculas
@@ -62,7 +59,7 @@ function App() {
   // const {mappedMovies} = useMovies() //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
   // const [query, setQuery] = useState('')
   const handleSort = ()=>{
-    console.log('%c65 >','color:red;font-size:15px;',sort);
+    // console.log('%c65 >','color:red;font-size:15px;',sort);
     setSort(!sort)
     sortedMovies(search) // mandamos al la funcion de useMovies - sortedMovies el search par q lo ordene
   }
@@ -74,14 +71,14 @@ function App() {
     const fields = Object.fromEntries(new window.FormData( e.target))
 
     // setGoSearch(fields.query1) //! obteniedo el ultimo search ya sumitearlo
-    console.log('%c72 >','color:blue;font-size:15px;',search);
+    // console.log('%c72 >','color:blue;font-size:15px;',search);
     getMovies(search)
     // getingMovies(search)
   }
 
   /* ------------------------------ handleChange ------------------------------ */
   const handleChange = (e) =>{
-    console.log(e.target.value);
+    // console.log(e.target.value);
 
     const newQuery = e.target.value
 
