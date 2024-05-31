@@ -31,29 +31,36 @@ export function useMovies ({search, sort}) {  //sort => trrue or false
 
   }
 
+
 /* -------------------------------------------------------------------------- */
 /* --------------------------- ordenar por titulo --------------------------- */
 // usando useMemo para evitar el calculo computacional de ordenar
     
-  const sortedMovies = (sort)=>{
-    
+  const sortedMovies =  (sort)=>{
+     
     console.log('%c40 sortedMovies >','color:red;font-size:15px;',sortedMovies);
     // Declaramos una variable para almacenar las películas ordenadas.
     let ordenMovies;
     // Verificamos si sort es verdadero.
-    if (sort) {
-      // Si sort es verdadero, hacemos una copia del array movies y lo ordenamos.
-      ordenMovies = movies.slice().sort(function(a, b) {
-        // console.log('%c45 >','color:blue;font-size:15px;',a.title.localeCompare(b.title));
-        return a.title.localeCompare(b.title);
-      });
-      return ordenMovies; //Devlvemos lo q movies tiene pero ordenado
+    
+      if (sort) {
+        // Si sort es verdadero, hacemos una copia del array movies y lo ordenamos.
+        ordenMovies = movies.slice().sort(function(a, b) {
+         // console.log('%c45 >','color:blue;font-size:15px;',a.title.localeCompare(b.title));
+          return a.title.localeCompare(b.title);
+         });
+        return ordenMovies; //Devlvemos lo q movies tiene pero ordenado
+        /* -------------------------------------------------------------------------- */
 
-    } else {
-      // Si sort es falso, simplemente asignamos el array movies sin modificarlo.
-      ordenMovies = movies;
-      return ordenMovies;
-    }    
+  
+      } else {
+        // Si sort es falso, simplemente asignamos el array movies sin modificarlo.
+        ordenMovies = movies;
+        return ordenMovies;
+        /* -------------------------------------------------------------------------- */
+       
+      }    
+ 
   }
 
 /* -------------------------------------------------------------------------- */
@@ -87,8 +94,7 @@ export function useMovies ({search, sort}) {  //sort => trrue or false
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 
-
-  /* ------------------- Funcionalidad separada SearchMovies ------------------ */
+    /* ------------------- Funcionalidad separada SearchMovies ------------------ */
   // getingMOvies -> es pasado a App.js - este mismo lo extraemos y le pasamos search del INPUT
   // egetingMOvie aki agarra a Search y lo pone en el estado movv
   // movv tambien es exportado en App, - movv optiene El Array de la busque de SearchMovies- quien mapea y hace el fetch
@@ -302,3 +308,93 @@ export function useMovies ({search, sort}) {  //sort => trrue or false
 
 
   /* -------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// #region 8.2 Ordenando Mvoies cehck
+/* -------------------------------------------------------------------------- */
+
+// import { useState } from "react"
+// // import withResults from '../Mocks/with-result.json' // responseMovies es una platilla para los resultados sin conexion
+// // import NotResult from '../Mocks/not-result.json'
+// import { searchMovies } from "../Services/SearchMovies"
+// import { useRef } from "react"
+// import { useMemo } from "react"
+
+// export function useMovies ({search, sort}) {  //sort => trrue or false
+  
+//   const [movies, setMovies] = useState([])
+//   const [loading, setLoading] = useState(false)
+//   const [errorh, setError] = useState(null)
+//   const previusSearch = useRef(search) // un Hook para permutar el valor y comprarlo cuando se hace la misma busqueda
+//   const [sortData, setSortData] = useState([])
+   
+//   const getMovies = async (search)=>{
+
+//     if(search === previusSearch.current) return  
+
+//     try{
+//       setLoading(true)
+//       setError(null)
+//       previusSearch.current = search
+//       const newMovies = await searchMovies({search})
+//       setMovies(newMovies)
+//     }catch(e){
+//       setError(e.message)
+//     }finally{
+//       setLoading(false)
+//     }
+
+//   }
+
+
+// /* -------------------------------------------------------------------------- */
+// /* --------------------------- ordenar por titulo --------------------------- */
+// // usando useMemo para evitar el calculo computacional de ordenar
+    
+// const sortedMovies =  (sort)=>{
+     
+//   console.log('%c40 sortedMovies >','color:red;font-size:15px;',sortedMovies);
+//   // Declaramos una variable para almacenar las películas ordenadas.
+//   let ordenMovies;
+//   // Verificamos si sort es verdadero.
+  
+//     if (sort) {
+//       // Si sort es verdadero, hacemos una copia del array movies y lo ordenamos.
+//       ordenMovies = movies.slice().sort(function(a, b) {
+//        // console.log('%c45 >','color:blue;font-size:15px;',a.title.localeCompare(b.title));
+//         return a.title.localeCompare(b.title);
+//        });
+//       return ordenMovies; //Devlvemos lo q movies tiene pero ordenado
+//       /* -------------------------------------------------------------------------- */
+
+
+//     } else {
+//       // Si sort es falso, simplemente asignamos el array movies sin modificarlo.
+//       ordenMovies = movies;
+//       return ordenMovies;
+//       /* -------------------------------------------------------------------------- */
+     
+//     }    
+
+// }
+
+// return { movies, sortedMovies, getMovies,errorh,loading }
+// }
+  
+/* -------------------------------------------------------------------------- */
