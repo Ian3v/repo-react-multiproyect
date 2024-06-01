@@ -61,7 +61,8 @@ function App() {
   const handleSort = ()=>{
     // console.log('%c65 >','color:red;font-size:15px;',sort);
     setSort(!sort)
-    sortedMovies(search) // mandamos al la funcion de useMovies - sortedMovies el search par q lo ordene
+    //EESTA PARTE DICE Q YA NO ES NECESARIA PORQ MUCHAS VECES SE LLAMA A HOOKS
+    //sortedMovies(search) // mandamos al la funcion de useMovies - sortedMovies el search par q lo ordene
   }
   
   // console.log('%c64 App movv >','color:yellow;font-size:15px;',movv);
@@ -73,7 +74,7 @@ function App() {
     // setGoSearch(fields.query1) //! obteniedo el ultimo search ya sumitearlo
     // console.log('%c72 >','color:blue;font-size:15px;',search);
     getMovies(search)
-    // getingMovies(search)
+    // getingMovies(search) 
   }
 
   /* ------------------------------ handleChange ------------------------------ */
@@ -130,7 +131,7 @@ function App() {
           loading 
           ? 
             <h1>loading</h1> 
-          :  <Movies Movies={sortedMovies(sort)} /> 
+          :  <Movies Movies={sortedMovies} /> 
          //   sort 
          //     ? <Movies Movies={sortedMovies(sort)} /> : <Movies Movies={movies} />
           //<Movies Movies={movies} /> //! ? creo q mandamos todo el js ya obtenido

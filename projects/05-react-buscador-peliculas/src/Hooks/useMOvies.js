@@ -35,78 +35,25 @@ export function useMovies ({search, sort}) {  //sort => trrue or false
 /* -------------------------------------------------------------------------- */
 /* --------------------------- ordenar por titulo --------------------------- */
 // usando useMemo para evitar el calculo computacional de ordenar
-    
+  
+
   const sortedMovies =  (sort)=>{
      
-    console.log('%c40 sortedMovies >','color:red;font-size:15px;',sortedMovies);
-    // Declaramos una variable para almacenar las películas ordenadas.
-    let ordenMovies;
-    // Verificamos si sort es verdadero.
-    
-      if (sort) {
-        // Si sort es verdadero, hacemos una copia del array movies y lo ordenamos.
-        ordenMovies = movies.slice().sort(function(a, b) {
-         // console.log('%c45 >','color:blue;font-size:15px;',a.title.localeCompare(b.title));
-          return a.title.localeCompare(b.title);
-         });
-        return ordenMovies; //Devlvemos lo q movies tiene pero ordenado
-        /* -------------------------------------------------------------------------- */
+
+  // }
+  /* --------------------------------- useMemo -------------------------------- */
+  //Ordenando y guardando, ejecucion computacional con useMemo
+  const sortedMovies = useMemo(() => {
+    console.log('%c63 >','color:orange;font-size:15px;','useMemo');
+    if (sort) {
+      return movies.slice().sort((a, b) => a.title.localeCompare(b.title))
+    } else {
+      return movies
+    }
+  }, [sort, movies])
 
   
-      } else {
-        // Si sort es falso, simplemente asignamos el array movies sin modificarlo.
-        ordenMovies = movies;
-        return ordenMovies;
-        /* -------------------------------------------------------------------------- */
-       
-      }    
- 
-  }
 
-/* -------------------------------------------------------------------------- */
-    // const sortedMovies = (sort)=>{
-      
-    //   console.log('%c38 sortedMovies >','color:pink;font-size:15px;');
-    //   // Declaramos una variable para almacenar las películas ordenadas.
-    //   let ordenMovies;
-    //   // Verificamos si sort es verdadero.
-    //   if (sort) {
-    //     // Si sort es verdadero, hacemos una copia del array movies y lo ordenamos.
-    //     ordenMovies = movies.slice().sort(function(a, b) {
-    //       return a.title.localeCompare(b.title);
-    //     });
-    //   } else {
-    //     // Si sort es falso, simplemente asignamos el array movies sin modificarlo.
-    //     ordenMovies = movies;
-    //   }
-    //   // Retornamos el resultado. pero Normal sin ordenar ya q no entro al if y no lo ordeno
-    //   return ordenMovies;
-      
-    // }
-
-/* -------------------------------------------------------------------------- */
-    // console.log('%c47 >','color:violet;font-size:15px;',sortedMovies(sort));
-    // ? 
-    //   [...movies].sort( (a,b)=>{ a.title.localCompare(b.title)} )
-    // :
-    //   movies
-    
-/* -------------------------------------------------------------------------- */
-/* -------------------------------------------------------------------------- */
-
-    /* ------------------- Funcionalidad separada SearchMovies ------------------ */
-  // getingMOvies -> es pasado a App.js - este mismo lo extraemos y le pasamos search del INPUT
-  // egetingMOvie aki agarra a Search y lo pone en el estado movv
-  // movv tambien es exportado en App, - movv optiene El Array de la busque de SearchMovies- quien mapea y hace el fetch
-  // movv en App le m=pasamo a MOVIES quein renderizara con el array
-  // const getMovies = async (search)=>{
-  //   const newMovies = await searchMovies({search})
-  //   setMovies(newMovies)
-  // }
-/* -------------------------------------------------------------------------- */
-
-    // return { mappedMovies, getMovie, getingMovies, movv}
-    
     return { movies, sortedMovies, getMovies,errorh,loading }
 }
   
