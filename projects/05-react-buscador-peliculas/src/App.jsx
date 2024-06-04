@@ -5,6 +5,7 @@ import { Movies } from './components/Movies'
 import { useMovies } from './Hooks/useMOvies'
 import { useEffect, useState, useRef } from 'react'
 
+
 // !todo 107 con grid <----
 // !1:10  lo siguiente-->
 // 1:38--
@@ -73,7 +74,7 @@ function App() {
 
     // setGoSearch(fields.query1) //! obteniedo el ultimo search ya sumitearlo
     // console.log('%c72 >','color:blue;font-size:15px;',search);
-    getMovies(search)
+    // getMovies(search)
     // getingMovies(search) 
   }
 
@@ -85,11 +86,16 @@ function App() {
 
     if(newQuery.startsWith('e')) return
 
-    updateSearch(e.target.value);
+    updateSearch(newQuery);
+    /* -------------------------- //Busqueda automatica ------------------------- */
+    // getMovies({search: newQuery})
+    getMovies( newQuery)
     
   }
 
-
+  useEffect( () => {
+    console.log('%c93 App.js  >','color:violet;font-size:15px;',getMovies);
+  },[getMovies])
 
   return ( 
     <div className='page'>
@@ -122,7 +128,7 @@ function App() {
           {/* {error && <p style={{color:'red'}}>{error}</p> } */}
           {error && <div style={{color:'red'}}>{error}</div>}
         </form>
-
+u
       </header>
 
       <main>
