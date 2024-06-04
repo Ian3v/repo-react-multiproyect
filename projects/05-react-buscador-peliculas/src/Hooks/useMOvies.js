@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 // import withResults from '../Mocks/with-result.json' // responseMovies es una platilla para los resultados sin conexion
 // import NotResult from '../Mocks/not-result.json'
 import { searchMovies } from "../Services/SearchMovies"
@@ -13,23 +13,26 @@ export function useMovies ({search, sort}) {  //sort => trrue or false
   const previusSearch = useRef(search) // un Hook para permutar el valor y comprarlo cuando se hace la misma busqueda
   const [sortData, setSortData] = useState([])
    
-  const getMovies = async (search)=>{
 
-    if(search === previusSearch.current) return  
+  const getMovies = useCallback ( 
 
-    try{
-      setLoading(true)
-      setError(null)
-      previusSearch.current = search
-      const newMovies = await searchMovies({search})
-      setMovies(newMovies)
-    }catch(e){
-      setError(e.message)
-    }finally{
-      setLoading(false)
-    }
+      async (search) => { //1.44
+        if(search === previusSearch.current) return  
 
-  }
+        try{
+          setLoading(true)
+          setError(null)
+          previusSearch.current = search
+          const newMovies = await searchMovies({search})
+          setMovies(newMovies) 
+        }catch(e){
+          setError(e.message)
+        }finally{
+          setLoading(false)
+        }
+  } ,[])
+
+ 
 
 
 /* -------------------------------------------------------------------------- */
@@ -37,14 +40,13 @@ export function useMovies ({search, sort}) {  //sort => trrue or false
 // usando useMemo para evitar el calculo computacional de ordenar
   
 
-  const sortedMovies =  (sort)=>{
-     
+  // const sortedMovies =  (sort)=>{
 
   // }
   /* --------------------------------- useMemo -------------------------------- */
   //Ordenando y guardando, ejecucion computacional con useMemo
   const sortedMovies = useMemo(() => {
-    console.log('%c63 >','color:orange;font-size:15px;','useMemo');
+    // console.log('%c63 >','color:orange;font-size:15px;','useMemo');
     if (sort) {
       return movies.slice().sort((a, b) => a.title.localeCompare(b.title))
     } else {

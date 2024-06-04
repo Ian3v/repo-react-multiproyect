@@ -3,12 +3,11 @@ import './App.css'
 // import { renderMovies, renderNotResult }  from './components/Movies'
 import { Movies } from './components/Movies'
 import { useMovies } from './Hooks/useMOvies'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 
-// !todo 107 con grid <----
-// !1:10  lo siguiente-->
-// 1:38--
-//Custom Hooks
+import debounce from "just-debounce-it";
+
+
 function useSearch(){
   const [search, updateSearch] = useState('')
   const [error, setError] = useState(null)
@@ -58,6 +57,10 @@ function App() {
   const { movies, getMovies, errorh, loading, sortedMovies} = useMovies({search,sort}) //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
   // const {mappedMovies} = useMovies() //! mappeMovies obtiene el mpeado q hcmos nosotros mismo
   // const [query, setQuery] = useState('')
+
+
+
+
   const handleSort = ()=>{
     // console.log('%c65 >','color:red;font-size:15px;',sort);
     setSort(!sort)
@@ -73,10 +76,10 @@ function App() {
 
     // setGoSearch(fields.query1) //! obteniedo el ultimo search ya sumitearlo
     // console.log('%c72 >','color:blue;font-size:15px;',search);
-    getMovies(search)
+    //? getMovies(search)// -> Comentamos por q se pasara esto en el handleChange (e) para q la busque se haga con cada letra
     // getingMovies(search) 
   }
-
+ 
   /* ------------------------------ handleChange ------------------------------ */
   const handleChange = (e) =>{
     // console.log(e.target.value);
@@ -85,11 +88,24 @@ function App() {
 
     if(newQuery.startsWith('e')) return
 
-    updateSearch(e.target.value);
-    
+    updateSearch(newQuery);
+
+    /* ------------------- haciendo el debounce para q espere ------------------- */
+    // getMovies(newQuery)
+    debounceGetMovies(newQuery) 
   }
 
 
+  const debounceGetMovies =  useCallback( debounce( search =>{
+    console.log('%c95 >','color:red;font-size:15px;',search);
+    getMovies(search)
+  }, 2000) ,[]
+ )
+ 
+//  const debounceGetMovies = debounce( search =>{
+//   console.log('%c95 >','color:red;font-size:15px;',search);
+//   getMovies(search)
+// }, 2000) 
 
   return ( 
     <div className='page'>
